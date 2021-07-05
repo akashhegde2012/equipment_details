@@ -1,12 +1,15 @@
 import React from 'react'
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {deleteEquipments} from '../actions/action';
-const Equipment = ({equipment}) => {
+const Equipment = ({equipment,setCurrentId}) => {
     const dispatch = useDispatch();
     const deleteHandler = ()=>{
         dispatch(deleteEquipments(equipment._id))
+    }
+    const editHandler=()=>{
+        setCurrentId(equipment._id);
     }
     return (
         <Card className='my-3 p-3 rounded'>
@@ -22,9 +25,12 @@ const Equipment = ({equipment}) => {
                     </Card.Title>
                 </Link>
                 <Card.Text as ='h4'>{equipment.category}</Card.Text>
+                <Row md={2} sm={2} lg={2}>
                 <Button onClick={deleteHandler} className='btn-block' type='button'>
                 <i className="fas fa-trash"></i>&nbsp;Delete
                 </Button>
+                <Button onClick={editHandler} variant={'outline-warning'}>Edit</Button>
+                </Row>
             </Card.Body>
             
         </Card>

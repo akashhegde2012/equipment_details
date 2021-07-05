@@ -1,9 +1,9 @@
 import React from 'react'
-import { Col, Container,Button, Form, Row, Spinner } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import EntryForm from '../components/EntryForm';
 import Equipment from '../components/Equipment'
-const HomeScreen = () => {
+const HomeScreen = ({currentId,setCurrentId}) => {
     const equipments = useSelector(state=>state.equipments)
     return (
         <Container fluid>
@@ -14,12 +14,12 @@ const HomeScreen = () => {
                         <Row>
                             {equipments.map(equipment=>
                             <Col key={equipment._id} sm={12} md={6} lg={4} >
-                                <Equipment key={equipment._id} equipment={equipment}/>
+                                <Equipment setCurrentId={setCurrentId} key={equipment._id} equipment={equipment}/>
                             </Col>)}
                         </Row>
                     </Col>
                     <Col md={3} xs={12}>
-                        <EntryForm />
+                        <EntryForm currentId={currentId} setCurrentId={setCurrentId} />
                     </Col>
                 </Row>
 

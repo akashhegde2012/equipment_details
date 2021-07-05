@@ -7,7 +7,8 @@ app.use(bodyParser.json({limit:'30mb',extended:true}));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 const PORT = process.env.PORT ||5000;
-mongoose.connect('mongodb://localhost/equipments',{useNewUrlParser:true,useUnifiedTopology:true})
+//'mongodb://localhost/equipments'
+mongoose.connect("mongodb+srv://akashhegde2012:Akash2012$@cluster0.lz6jd.mongodb.net/equipments?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology:true})
     .then(()=>{
         app.listen(PORT,()=>{console.log('Server running in port 5000')});
     })
@@ -42,3 +43,10 @@ app.delete('/equipments/:id', async(req,res)=>{
     console.log(id);
     res.json({message:'Post deleted successfully'});
 });
+app.patch('/equipments/:id',async(req,res)=>{
+    const {id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send('no post with that id');
+    const updateEquipments = await Equipment.findByIdAndUpdate(id,req.body,{new:true});
+    res.json(updateEquipments);
+})
