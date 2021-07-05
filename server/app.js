@@ -26,6 +26,9 @@ const createEquipments = async(equipment)=>{
     return newEquipment;
 }
 const Equipment = mongoose.model('Equipment',equipmentSchema);
+app.get('/',(req,res)=>{
+    res.send('<h1> Hello to equipment server </h1>');
+})
 app.get('/equipments', async (req,res)=>{
     const equipments = await Equipment.find();
     res.status(200).json(equipments);
@@ -49,4 +52,4 @@ app.patch('/equipments/:id',async(req,res)=>{
     return res.status(404).send('no post with that id');
     const updateEquipments = await Equipment.findByIdAndUpdate(id,req.body,{new:true});
     res.json(updateEquipments);
-})
+});

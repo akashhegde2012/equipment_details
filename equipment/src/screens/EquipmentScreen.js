@@ -1,10 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {  Col, Container, Image,  Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import {Link} from 'react-router-dom';
 const EquipmentScreen = ({match})=>{
     const equipments = useSelector(state=>state.equipments)
-    const equipment = equipments.find(p=> p._id === match.params.id)
+    const [equipment,setEquipments] = useState({});
+    useEffect(()=>{
+        setEquipments(equipments.find(p=> p._id === match.params.id));
+
+    },[equipments,setEquipments,match])
     return (
         <Fragment>
             <Container className='details' >
